@@ -6,7 +6,8 @@ A userscript for adding unwatched videos from your YouTube subscriptions page to
     Browser: Google Chrome Version 60.0.3112.101 (Official Build)(64-bit)
     YouTube new Material Design layout
 
-The script is published on GreasyFork at: https://greasyfork.org/en/scripts/33273-youtube-subscriptions-watch-later
+The script is published on GreasyFork and OpenUserJS at: https://greasyfork.org/en/scripts/33273-youtube-subscriptions-watch-later
+https://openuserjs.org/scripts/ackoujens/YouTube_Subscriptions_Watch_Later
 
 # Installation
 
@@ -15,6 +16,10 @@ The script is published on GreasyFork at: https://greasyfork.org/en/scripts/3327
 - Visit YouTube (or refresh the YouTube page if it's already open)
 
 # TODO
+- Hover over icon swap
+- Deliver feedback when videos are added
+  - Delaying video adding on each index might deliver a cool animation
+  - Pop up a prompt like the regular "Watch later" one but alter the feedback text
 - Check @homepage, @homepageURL, @website and @source header elements
 - Add a script icon @icon, @iconURL and @defaulticon (script icon in low res)
 - Add a high res script icon (@icon64 and @icon64URL)
