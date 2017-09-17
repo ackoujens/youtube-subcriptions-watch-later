@@ -15,8 +15,6 @@ The script is published on GreasyFork at: https://greasyfork.org/en/scripts/3327
 - Visit YouTube (or refresh the YouTube page if it's already open)
 
 # TODO
-- Only add unwatched video's
-- Select buttons based on aria-label to prevent other buttons with the same class to be clicked (https://blog.garstasio.com/you-dont-need-jquery/selectors/)
 - Check @homepage, @homepageURL, @website and @source header elements
 - Add a script icon @icon, @iconURL and @defaulticon (script icon in low res)
 - Add a high res script icon (@icon64 and @icon64URL)
