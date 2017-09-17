@@ -4,6 +4,7 @@ A userscript for adding unwatched videos from your YouTube subscriptions page to
     Tested on:
     OS: macOS Sierra (Version 10.12.6)
     Browser: Google Chrome Version 60.0.3112.101 (Official Build)(64-bit)
+    YouTube new Material Design layout
 
 The script is published on GreasyFork at: https://greasyfork.org/en/scripts/33273-youtube-subscriptions-watch-later
 
