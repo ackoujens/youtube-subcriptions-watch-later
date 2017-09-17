@@ -23,13 +23,13 @@
 // Probably the reason why I chose to make it look like the icons are part of eachother.
 
 (function(undefined) {
-    // Enable for debugging
-    var __DEV__ = false;
+  // Enable for debugging
+  var __DEV__ = false;
 
-    // Set defaults
-    localStorage.YTSP = localStorage.SP || 'false';
+  // Set defaults
+  localStorage.YTSP = localStorage.YTSP || 'false';
 
-    GM_addStyle(`
+  GM_addStyle(`
 .YT-SP-BUTTON {
     background: transparent;
     border: 0;
@@ -73,125 +73,128 @@
 .YT-SP-MENUBUTTON-ON span { transform: rotate(180deg) }
 `);
 
-    var counter = 0;
-    var watchlaterIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><g fill="currentColor"><path d="M32 4h-4v-4h-4v4h-4v4h4v4h4v-4h4z"></path><path d="M26.996 13.938c0.576 0.64 1.1 1.329 1.563 2.062-1.197 1.891-2.79 3.498-4.67 4.697-2.362 1.507-5.090 2.303-7.889 2.303s-5.527-0.796-7.889-2.303c-1.88-1.199-3.473-2.805-4.67-4.697 1.197-1.891 2.79-3.498 4.67-4.697 0.122-0.078 0.246-0.154 0.371-0.228-0.311 0.854-0.482 1.776-0.482 2.737 0 4.418 3.582 8 8 8s8-3.582 8-8c0-0.022-0.001-0.043-0.001-0.065-3.415-0.879-5.947-3.957-5.998-7.635-0.657-0.074-1.325-0.113-2.001-0.113-6.979 0-13.028 4.064-16 10 2.972 5.936 9.021 10 16 10s13.027-4.064 16-10c-0.551-1.101-1.209-2.137-1.958-3.095-0.915 0.537-1.946 0.897-3.046 1.034zM13 10c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3z"></path></g></svg>';
+  var counter = 0;
+  var watchlaterIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><g fill="currentColor"><path d="M32 4h-4v-4h-4v4h-4v4h4v4h4v-4h4z"></path><path d="M26.996 13.938c0.576 0.64 1.1 1.329 1.563 2.062-1.197 1.891-2.79 3.498-4.67 4.697-2.362 1.507-5.090 2.303-7.889 2.303s-5.527-0.796-7.889-2.303c-1.88-1.199-3.473-2.805-4.67-4.697 1.197-1.891 2.79-3.498 4.67-4.697 0.122-0.078 0.246-0.154 0.371-0.228-0.311 0.854-0.482 1.776-0.482 2.737 0 4.418 3.582 8 8 8s8-3.582 8-8c0-0.022-0.001-0.043-0.001-0.065-3.415-0.879-5.947-3.957-5.998-7.635-0.657-0.074-1.325-0.113-2.001-0.113-6.979 0-13.028 4.064-16 10 2.972 5.936 9.021 10 16 10s13.027-4.064 16-10c-0.551-1.101-1.209-2.137-1.958-3.095-0.915 0.537-1.946 0.897-3.046 1.034zM13 10c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3z"></path></g></svg>';
 
 
-    // ===========================================================
-    // Returns a function, that, as long as it continues to be invoked, will not
-    // be triggered. The function will be called after it stops being called for
-    // N milliseconds. If `immediate` is passed, trigger the function on the
-    // leading edge, instead of the trailing.
-
-    var debounce = function (func, wait, immediate) {
-        var timeout;
-        return function() {
-            var context = this, args = arguments;
-            var later = function() {
-                timeout = null;
-                if (!immediate) func.apply(context, args);
-            };
-            var callNow = immediate && !timeout;
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-            if (callNow) func.apply(context, args);
-        };
+  // ===========================================================
+  // Returns a function, that, as long as it continues to be invoked, will not
+  // be triggered. The function will be called after it stops being called for
+  // N milliseconds. If `immediate` is passed, trigger the function on the
+  // leading edge, instead of the trailing.
+  var debounce = function(func, wait, immediate) {
+    var timeout;
+    return function() {
+      var context = this,
+        args = arguments;
+      var later = function() {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+      var callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
     };
+  };
 
-    // ===========================================================
-    // Button will be injected into the main header menu
-    var findButtonTarget = function () {
-        return $('#container #end #buttons');
-    };
+  // ===========================================================
+  // Button will be injected into the main header menu
+  var findButtonTarget = function() {
+    return $('#container #end #buttons');
+  };
 
-    // ===========================================================
-    // Check if button is already present
-    var isButtonAlreadyThere = function () {
-        return $('.YT-SP-BUTTON').length > 0;
-    };
+  // ===========================================================
+  // Check if button is already present
+  var isButtonAlreadyThere = function() {
+    return $('.YT-SP-BUTTON').length > 0;
+  };
 
-    // ===========================================================
-    // Add button to page
-    var addButton = function () {
-        if (isButtonAlreadyThere()) return;
+  // ===========================================================
+  // Add button to page
+  var addButton = function() {
+    if (isButtonAlreadyThere()) return;
 
-        // Find button target
-        var target = findButtonTarget();
-        if (!target) return;
+    // Find button target
+    var target = findButtonTarget();
+    if (!target) return;
 
-        // Generate button DOM
-        //var icon = localStorage.SP === 'true' ? visibilityIcon : visibilityOffIcon;
-        var icon = localStorage.YTSP = watchlaterIcon;
-        var button = $('<button class="YT-SP-BUTTON" title="Add Videos to Watch Later">' + icon + '</button>');
+    // Generate button DOM
+    //var icon = localStorage.SP === 'true' ? visibilityIcon : visibilityOffIcon;
+    var icon = localStorage.YTSP = watchlaterIcon;
+    var button = $('<button class="YT-SP-BUTTON" title="Add Videos to Watch Later">' + icon + '</button>');
 
-        // Attach button event
-        button.on("click", function () {
-            $('ytd-thumbnail-overlay-toggle-button-renderer').click();
+    // Attach button event
+    button.on("click", function() {
+      $('ytd-thumbnail-overlay-toggle-button-renderer').click();
+    });
+
+    // Insert button into DOM
+    target.prepend(button);
+  };
+
+  var run = debounce(function() {
+    if (__DEV__) console.log('[YT-SP] Running check for subcription videos');
+    addButton();
+  }, 500);
+
+  // ===========================================================
+
+  // Hijack all XHR calls
+  var send = XMLHttpRequest.prototype.send;
+  XMLHttpRequest.prototype.send = function(data) {
+    this.addEventListener("readystatechange", function() {
+      if (
+        // Anytime more videos are fetched -- re-run script
+        this.responseURL.indexOf('browse_ajax?action_continuation') > 0
+      ) {
+        setTimeout(function() {
+          run();
+        }, 0);
+      }
+    }, false);
+    send.call(this, data);
+  };
+
+  // ===========================================================
+
+  var observeDOM = (function() {
+    var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+    var eventListenerSupported = window.addEventListener;
+
+    return function(obj, callback) {
+      if (__DEV__) console.log('[YT-SP] Attaching DOM listener');
+
+      // Invalid `obj` given
+      if (!obj) return;
+
+      if (MutationObserver) {
+        var obs = new MutationObserver(function(mutations, observer) {
+          if (mutations[0].addedNodes.length || mutations[0].removedNodes.length) {
+            callback(mutations);
+          }
         });
 
-        // Insert button into DOM
-        target.prepend(button);
- };
-
-    var run = debounce(function () {
-        if (__DEV__) console.log('[YT-SP] Running check for subcription videos');
-        addButton();
-    }, 500);
-
-    // ===========================================================
-
-    // Hijack all XHR calls
-    var send = XMLHttpRequest.prototype.send;
-    XMLHttpRequest.prototype.send = function (data) {
-        this.addEventListener("readystatechange", function () {
-            if (
-                // Anytime more videos are fetched -- re-run script
-                this.responseURL.indexOf('browse_ajax?action_continuation') > 0
-            ) {
-                setTimeout(function () {
-                    run();
-                }, 0);
-            }
-        }, false);
-        send.call(this, data);
+        obs.observe(obj, {
+          childList: true,
+          subtree: true
+        });
+      } else if (eventListenerSupported) {
+        obj.addEventListener('DOMNodeInserted', callback, false);
+        obj.addEventListener('DOMNodeRemoved', callback, false);
+      }
     };
+  })();
 
-    // ===========================================================
+  // ===========================================================
 
-    var observeDOM = (function() {
-        var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
-        var eventListenerSupported = window.addEventListener;
+  if (__DEV__) console.log('[YT-SP] Starting Script');
 
-        return function(obj, callback) {
-            if (__DEV__) console.log('[YT-SP] Attaching DOM listener');
+  // YouTube does navigation via history and also does a bunch
+  // of AJAX video loading. In order to ensure we're always up
+  // to date, we have to listen for ANY DOM change event, and
+  // re-run our script.
+  observeDOM(document.body, run);
 
-            // Invalid `obj` given
-            if (!obj) return;
-
-            if (MutationObserver) {
-                var obs = new MutationObserver(function (mutations, observer) {
-                    if (mutations[0].addedNodes.length || mutations[0].removedNodes.length) {
-                        callback(mutations);
-                    }
-                });
-
-                obs.observe(obj, {childList: true, subtree: true});
-            } else if (eventListenerSupported) {
-                obj.addEventListener('DOMNodeInserted', callback, false);
-                obj.addEventListener('DOMNodeRemoved', callback, false);
-            }
-        };
-    })();
-
-    // ===========================================================
-
-    if (__DEV__) console.log('[YT-SP] Starting Script');
-
-    // YouTube does navigation via history and also does a bunch
-    // of AJAX video loading. In order to ensure we're always up
-    // to date, we have to listen for ANY DOM change event, and
-    // re-run our script.
-    observeDOM(document.body, run);
-
-    run();
+  run();
 })();
