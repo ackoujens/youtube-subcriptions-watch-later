@@ -10,7 +10,7 @@
 // @include      https://*.youtube.com/*
 // @include      https://youtube.com/*
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js
-// @require      https://gist.github.com/raw/2625891/waitForKeyElements.js
+// @require      https://github.com/ackoujens/youtube-subcriptions-watch-later/raw/master/waitForKeyElements.js
 // ==/UserScript==
 
 // To submit bugs or submit revisions please see visit the repository at:
