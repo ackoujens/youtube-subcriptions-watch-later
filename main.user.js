@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube: Subscriptions Watch Later
 // @namespace    https://github.com/ackoujens
-// @version      1.1
+// @version      1.2
 // @description  Adds unwatched videos from your YouTube subscriptions page to the "Watch later" playlist
 // @author       Jens Ackou
 // @grant        GM_addStyle
@@ -122,7 +122,7 @@
       }
     }
   }
-  
+
   // ===========================================================
   // Add button to page
   var addButton = function() {
