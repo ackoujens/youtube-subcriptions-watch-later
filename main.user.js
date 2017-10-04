@@ -113,6 +113,17 @@
   };
 
   // ===========================================================
+  // Pausing the script in milliseconds
+  function sleep(milliseconds) {
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++) {
+      if ((new Date().getTime() - start) > milliseconds) {
+        break;
+      }
+    }
+  }
+  
+  // ===========================================================
   // Add button to page
   var addButton = function() {
     if (isButtonAlreadyThere()) return;
@@ -134,6 +145,8 @@
       for (i = 0; i < allItems.length; i++) {
         if (!$(allItems[i]).parent().find('ytd-thumbnail-overlay-resume-playback-renderer').length) {
           $(allItems[i]).click();
+          // Executing this too fast seems to drop videos being added
+          sleep(100);
         }
       }
     });
