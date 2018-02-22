@@ -47,3 +47,8 @@ Example:
   - @run-at document-body (when body element exists)
   - @run-at document-end (injected when or after DOMContentLoaded event was dispatched)
   - @run-at document-idle (after DOMContentLoaded event was dispatched)
+  
+  # Donation
+If this project helped enhancing your YouTube experience, you can always treat me to a cold one :)
+
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.me/ackoujens)
