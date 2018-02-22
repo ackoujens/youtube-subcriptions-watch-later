@@ -1,3 +1,6 @@
+# ON HOLD
+Dear users of my script. I didn't get allot of feedback but for the ones who did, I will be working on this script again at the beginning of April. Doing a move right now and not allot of time is set asside for scripting. I'm not abandoning this project because I'm bothered as well seeing this userscript broke so unexpectedly. Thank you for your patience!
+
 # Youtube Subscriptions Watch Later
 A userscript for adding unwatched videos from your YouTube subscriptions page to the "Watch later" playlist.
 
